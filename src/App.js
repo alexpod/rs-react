@@ -1,5 +1,6 @@
-import React, {  } from 'react';
+import React from 'react';
 import './App.css';
+import { useHover } from './hooks/useHover';
 
 function App() {
   const { hovered, ref } = useHover();
