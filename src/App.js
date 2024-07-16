@@ -4,7 +4,6 @@ import { useViewportSize } from './hooks/useViewportSize';
 
 function App() {
   const { height, width } = useViewportSize();
-  console.log('===', width, height);
 
   return (
     <>
