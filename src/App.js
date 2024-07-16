@@ -1,18 +1,14 @@
 import React, {  } from 'react';
 import './App.css';
-import { useWindowScroll } from './hooks/useWindowScroll';
+import { useToggleExt } from './hooks/useToggleExt';
 
 function App() {
-  const [scroll, scrollTo] = useWindowScroll();
-
+  cconst [value, toggle] = useToggle(['blue', 'orange', 'cyan', 'teal']);
 
   return (
-    <div className='panel'>
-      <p>
-        Scroll position x: {scroll.x}, y: {scroll.y}
-      </p>
-      <button onClick={() => scrollTo({ y: 0 })}>Scroll to top</button>
-    </div>
+    <button onClick={() => toggle()}>
+      {value}
+    </button>
   );
 }
 
