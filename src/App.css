@@ -28,11 +28,10 @@ body,
   color: #61dafb;
 }
 #root {
-  height: 2000px;
-  background: url(../public/bg.jpg) repeat-y center center;
-  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
-  min-width: 1200px;
 }
 .panel {
   position: fixed;

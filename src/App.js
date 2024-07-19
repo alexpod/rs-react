@@ -1,9 +1,10 @@
-import React, {  } from 'react';
+import React from 'react';
 import './App.css';
-import { useToggleExt } from './hooks/useToggleExt';
+import { useToggle } from './hooks/useToggleExt';
 
 function App() {
-  cconst [value, toggle] = useToggle(['blue', 'orange', 'cyan', 'teal']);
+  const [value, toggle] = useToggle(['blue', 'orange', 'cyan', 'teal']);
+  // const [value, toggle] = useToggle();
 
   return (
     <button onClick={() => toggle()}>
