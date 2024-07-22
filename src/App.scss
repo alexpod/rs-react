@@ -1,0 +1,33 @@
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  text-align: center;
+}
+.form {
+  max-width: 400px;
+  margin: 150px auto;
+  h1 {
+    font-size: 28px;
+    font-weight: 500;
+  }
+  input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    resize: vertical;
+    font-size: 18px;
+    &:focus {
+      outline: 1px solid #00d8fe;
+    }
+  }
+  &__input {
+    margin-bottom: 16px;
+    &-error {
+      color: red;
+      font-size: 14px;
+    }
+  }
+}
