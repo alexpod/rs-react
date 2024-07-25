@@ -1,46 +1,37 @@
 import { FormEvent, useState } from 'react'
 
-interface FormInputProps {
-  label: string;
-  type: 'text' | 'email' | 'password';
-  value: string;
+interface FormButtonProps {
+  type: 'submit' | 'reset' | 'button';
+  text: string;
   onChange: Function;
   disabled?: boolean;
   className?: string;
-  placeholder?: string;
   error?: string;
   size?: 'small' | 'medium' | 'large';
   variant?: 'primary' | 'danger' | 'warning';
 }
 
-const FormInput = ({
-  label,
+const FormButton = ({
   type,
-  value,
+  text,
   onChange,
   disabled,
   className,
-  placeholder,
   error,
   size,
   variant
-}: FormInputProps) => {
+}: FormButtonProps) => {
 
   const classList = [className, size, variant].filter(Boolean).join(' ')
 
   return (
     <div className="form__input">
-      <label htmlFor={label}>{label}</label>
-      <input
-        id={label}
-        name={label}
+      <button
         type={type}
         className={classList || undefined}
-        value={value}
         onChange={onChange}
-        placeholder={placeholder}
         disabled={disabled}
-      />
+      >{text}</button>
       { error && (
         <div className="form__input-error" >
           { error }
@@ -50,4 +41,4 @@ const FormInput = ({
   )
 }
 
-export default FormInput;
+export default FormButton;

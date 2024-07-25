@@ -23,6 +23,16 @@
       outline: 1px solid #00d8fe;
     }
   }
+  &__text {
+    font-size: 14px;
+    color: #848484;
+    a {
+      opacity: 0.5;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
   &__input {
     margin-bottom: 16px;
     &-error {

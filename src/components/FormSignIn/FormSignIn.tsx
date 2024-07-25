@@ -1,40 +1,61 @@
-import { FormEvent } from "react"
+import { useState, FormEvent } from "react"
 import Input from "../Form/FormInput/FormInput"
+import Button from "../Form/FormButton/FormButton"
 
 const FormSignIn = () => {
-  const email = {
-    label: 'Email',
-    type: 'email',
-    value: '',
-    onChange: () => {},
-    disabled: false,
-    placeholder: 'Enter your email'
+  interface Fields {
+    [key: string]: string
   }
 
-  const handleNameChange = (e: FormEvent<HTMLElement>) => {
+  const [fields, setFields] = useState<Fields>({
+    email: '',
+    password: ''
+  })
+
+
+  const handleChange = (e: FormEvent<HTMLInputElement>) => {
+    //e.preventDefault()
+    const [name, value] = e.target.value
+
+
+    setFields((prevFields: Fields) => ({
+      ...prevFields,
+      [name]: value
+    }))
+  }
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    console.log('Handle Submit',e)
   }
 
   return (
     <div className="form">
       <h1>Sign into your account</h1>
-      <form action="">
+      <form action="" onSubmit={handleSubmit}>
         <Input
           label='Email'
           type='email'
-          value=''
-          onChange={handleNameChange}
+          value=""
+          onChange={handleChange}
           placeholder= 'Enter your email'
           error='Email is required'
+          className="test"
         />
         <Input
           label='Password'
           type='password'
-          value=''
-          onChange={handleNameChange}
+          value=""
+          onChange={handleChange}
           placeholder= 'Enter your password'
+          error='Password is required'
         />
-        <button type="submit">Sign In</button>
+        <Button
+          type='submit'
+          text='Sign In'
+          onChange={() => {}}
+        />
+        <p className="form__text">Don't have an account? <a href="#">Sign Up</a></p>
       </form>
     </div>
   )
