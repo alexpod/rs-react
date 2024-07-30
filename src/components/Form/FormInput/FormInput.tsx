@@ -1,16 +1,18 @@
-import { FormEvent, useState } from 'react'
+// import { FormEvent, useState } from 'react'
 
 interface FormInputProps {
   label: string;
   type: 'text' | 'email' | 'password';
   value: string;
   onChange: Function;
+  onBlur: Function;
   disabled?: boolean;
   className?: string;
   placeholder?: string;
   error?: string;
   size?: 'small' | 'medium' | 'large';
   variant?: 'primary' | 'danger' | 'warning';
+  validation?: boolean
 }
 
 const FormInput = ({
@@ -18,12 +20,14 @@ const FormInput = ({
   type,
   value,
   onChange,
+  onBlur,
   disabled,
   className,
   placeholder,
   error,
   size,
-  variant
+  variant,
+  validation
 }: FormInputProps) => {
 
   const classList = [className, size, variant].filter(Boolean).join(' ')
@@ -38,10 +42,11 @@ const FormInput = ({
         className={classList || undefined}
         value={value}
         onChange={onChange}
+        onBlur={onBlur}
         placeholder={placeholder}
         disabled={disabled}
       />
-      { error && (
+      { !validation && (
         <div className="form__input-error" >
           { error }
         </div>

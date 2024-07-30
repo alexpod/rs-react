@@ -2,6 +2,7 @@ import { useState, FormEvent } from "react"
 import Input from "../Form/FormInput/FormInput"
 import Button from "../Form/FormButton/FormButton"
 import formValidation from "../Form/FormValidation"
+import FormRadio from "../Form/FormRadio/FormRadio"
 
 const FormSignIn = () => {
   interface Fields {
@@ -10,12 +11,19 @@ const FormSignIn = () => {
 
   const [fields, setFields] = useState<Fields>({
     email: '',
-    password: ''
+    name: '',
+    nickname: '',
+    gender: '',
+    password: '',
+    repassword: ''
   })
 
   const [validatin, setValidation] = useState({
     email: true,
-    password: true
+    name: true,
+    nickname: true,
+    password: true,
+    repassword: true,
   })
 
   const handleBlur = (e: FormEvent<HTMLInputElement>) => {
@@ -76,7 +84,7 @@ const FormSignIn = () => {
 
   return (
     <div className="form">
-      <h1>Sign into your account</h1>
+      <h1>Create your account</h1>
       <form action="" onSubmit={handleSubmit}>
         <Input
           label='email'
@@ -86,9 +94,42 @@ const FormSignIn = () => {
           onBlur={handleBlur}
           placeholder= 'Enter your email'
           error='Email is required'
-          className="test"
           validation={validatin.email}
         />
+        <Input
+          label='name'
+          type='text'
+          value={fields.name}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          placeholder= 'Enter your name'
+          error='Name is required'
+          validation={validatin.name}
+        />
+        <Input
+          label='nickname'
+          type='text'
+          value={fields.nickname}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          placeholder= 'Enter your nickname'
+          error='Nickname is required'
+          validation={validatin.nickname}
+        />
+        <div className="form__radio-group">
+        <FormRadio
+          label='male'
+          name='gender'
+          value={fields.gender}
+          onChange={handleChange}
+        />
+        <FormRadio
+          label='female'
+          name='gender'
+          value={fields.gender}
+          onChange={handleChange}
+        />
+        </div>
         <Input
           label='password'
           type='password'
@@ -99,12 +140,22 @@ const FormSignIn = () => {
           error='Password is required'
           validation={validatin.password}
         />
+        <Input
+          label='re-password'
+          type='password'
+          value={fields.repassword}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          placeholder= 'Enter your password'
+          error='Password is required'
+          validation={validatin.repassword}
+        />
         <Button
           type='submit'
-          text='Sign In'
+          text='Sign Up'
           onChange={() => {}}
         />
-        <p className="form__text">Don't have an account? <a href="#">Sign Up</a></p>
+        <p className="form__text">Already have an account? <a href="#">Sign In</a></p>
       </form>
     </div>
   )

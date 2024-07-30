@@ -40,6 +40,10 @@ header {
           text-decoration: none;
           color: white;
           font-size: 14px;
+
+          &.active {
+            color: #00d8fe;
+          }
         }
         &::after {
           content: '|';
