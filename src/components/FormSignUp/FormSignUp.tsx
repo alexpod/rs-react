@@ -1,4 +1,4 @@
-import { useState, FormEvent } from "react"
+import { useState, FormEvent, useEffect } from "react"
 import Input from "../Form/FormInput/FormInput"
 import Button from "../Form/FormButton/FormButton"
 import formValidation from "../Form/FormValidation"
@@ -26,9 +26,17 @@ const FormSignIn = () => {
     repassword: true,
   })
 
+  const [submit, setSubmit] = useState(false)
+
+  useEffect(() => {
+    console.log('validatinvalidatinvalidatin', validatin)
+    const allValues = Object.values(validatin).every(value => value === true);
+    //if (allValues) setSubmit(true)
+  }, [validatin])
+
   const handleBlur = (e: FormEvent<HTMLInputElement>) => {
     const { name, value } = e.target as HTMLInputElement
-    if (formValidation(name, value)) {
+    if (formValidation(name, value, fields)) {
       setValidation((prevValidation) => ({
         ...prevValidation,
         [name]: true
@@ -52,13 +60,12 @@ const FormSignIn = () => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    // const { name, value } = e.target as HTMLInputElement
-    // console.log('name, value', e.target[0])
+    setSubmit(false)
 
     Array.from(e.target).forEach((field) => {
       const { name, value } = field as HTMLInputElement
       
-      if (formValidation(name, value)) {
+      if (formValidation(name, value, fields)) {
         setValidation((prevValidation) => ({
           ...prevValidation,
           [name]: true
@@ -68,23 +75,23 @@ const FormSignIn = () => {
           ...prevValidation,
           [name]: false
         }))
+
+        console.log('###', validatin)
       }
     })
 
-    // for (const item in e.target) {
-    //   console.log('fields', item)
-    // }
+    
 
-    // if (formValidation(name, value)) {
-    //   console.log('Validation passed')
-    // } else {
-    //   console.log('Validation failed')
-    // }
+    console.log('allValues', submit)
+    
   }
 
   return (
     <div className="form">
       <h1>Create your account</h1>
+      {/* {!submit && ( */}
+        
+      
       <form action="" onSubmit={handleSubmit}>
         <Input
           label='email'
@@ -117,18 +124,18 @@ const FormSignIn = () => {
           validation={validatin.nickname}
         />
         <div className="form__radio-group">
-        <FormRadio
-          label='male'
-          name='gender'
-          value={fields.gender}
-          onChange={handleChange}
-        />
-        <FormRadio
-          label='female'
-          name='gender'
-          value={fields.gender}
-          onChange={handleChange}
-        />
+          <FormRadio
+            label='male'
+            name='gender'
+            value={fields.gender}
+            onChange={handleChange}
+          />
+          <FormRadio
+            label='female'
+            name='gender'
+            value={fields.gender}
+            onChange={handleChange}
+          />
         </div>
         <Input
           label='password'
@@ -141,12 +148,12 @@ const FormSignIn = () => {
           validation={validatin.password}
         />
         <Input
-          label='re-password'
+          label='repassword'
           type='password'
           value={fields.repassword}
           onChange={handleChange}
           onBlur={handleBlur}
-          placeholder= 'Enter your password'
+          placeholder= 'Enter your password again'
           error='Password is required'
           validation={validatin.repassword}
         />
@@ -157,6 +164,8 @@ const FormSignIn = () => {
         />
         <p className="form__text">Already have an account? <a href="#">Sign In</a></p>
       </form>
+      {/* )} */}
+      { submit && <div className="form__message"><h2>Success</h2>You are signed up</div> }
     </div>
   )
 }

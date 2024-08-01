@@ -18,6 +18,8 @@ const FormSignIn = () => {
     password: true
   })
 
+  const [submit, setSubmit] = useState(false)
+
   const handleBlur = (e: FormEvent<HTMLInputElement>) => {
     const { name, value } = e.target as HTMLInputElement
     if (formValidation(name, value)) {
@@ -63,20 +65,16 @@ const FormSignIn = () => {
       }
     })
 
-    // for (const item in e.target) {
-    //   console.log('fields', item)
-    // }
-
-    // if (formValidation(name, value)) {
-    //   console.log('Validation passed')
-    // } else {
-    //   console.log('Validation failed')
-    // }
+    const allValuesTrue = Object.values(validatin).every(value => value === true);
+    if (allValuesTrue) setSubmit(true)
   }
 
   return (
     <div className="form">
       <h1>Sign into your account</h1>
+      { !submit && (
+        
+      
       <form action="" onSubmit={handleSubmit}>
         <Input
           label='email'
@@ -106,6 +104,9 @@ const FormSignIn = () => {
         />
         <p className="form__text">Don't have an account? <a href="#">Sign Up</a></p>
       </form>
+      ) }
+
+      { submit && <div className="form__message"><h2>Success</h2>You are signed in</div> }
     </div>
   )
 }
