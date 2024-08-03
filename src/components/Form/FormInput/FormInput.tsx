@@ -46,7 +46,7 @@ const FormInput = ({
         placeholder={placeholder}
         disabled={disabled}
       />
-      { !validation && (
+      { error && (
         <div className="form__input-error" >
           { error }
         </div>

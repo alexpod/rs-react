@@ -14,23 +14,20 @@ const FormSignIn = () => {
   })
 
   const [validatin, setValidation] = useState({
-    email: true,
-    password: true
+    email: '',
+    password: ''
   })
 
   const [submit, setSubmit] = useState(false)
+  let allValuesTrue = false
+  let allFieldsTrue = false
 
   const handleBlur = (e: FormEvent<HTMLInputElement>) => {
     const { name, value } = e.target as HTMLInputElement
-    if (formValidation(name, value)) {
+    if (formValidation(name, value, fields)) {
       setValidation((prevValidation) => ({
         ...prevValidation,
-        [name]: true
-      }))
-    } else {
-      setValidation((prevValidation) => ({
-        ...prevValidation,
-        [name]: false
+        [name]: formValidation(name, value, fields)
       }))
     }
   }
@@ -42,6 +39,12 @@ const FormSignIn = () => {
       ...prevFields,
       [name.toLocaleLowerCase()]: value
     }))
+
+      console.log('formValidation', validatin, fields)
+      setValidation((prevValidation) => ({
+        ...prevValidation,
+        [name]: formValidation(name, value, fields)
+      }))
   }
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -52,21 +55,21 @@ const FormSignIn = () => {
     Array.from(e.target).forEach((field) => {
       const { name, value } = field as HTMLInputElement
       
-      if (formValidation(name, value)) {
+      if (formValidation(name, value, fields)) {
         setValidation((prevValidation) => ({
           ...prevValidation,
-          [name]: true
-        }))
-      } else {
-        setValidation((prevValidation) => ({
-          ...prevValidation,
-          [name]: false
+          [name]: formValidation(name, value, fields)
         }))
       }
     })
-
-    const allValuesTrue = Object.values(validatin).every(value => value === true);
-    if (allValuesTrue) setSubmit(true)
+    allValuesTrue = Object.values(validatin).every(value => value === '');
+    allFieldsTrue = Object.values(fields).every(value => value !== '');
+    console.log('validatin', validatin)
+    console.log('fields', fields)
+    if (allValuesTrue && allFieldsTrue) {
+      console.log('setSubmit allValuesTrue', allValuesTrue, allFieldsTrue)
+      setSubmit(true);
+    }
   }
 
   return (
@@ -83,9 +86,7 @@ const FormSignIn = () => {
           onChange={handleChange}
           onBlur={handleBlur}
           placeholder= 'Enter your email'
-          error='Email is required'
-          className="test"
-          validation={validatin.email}
+          error={validatin.email}
         />
         <Input
           label='password'
@@ -94,8 +95,7 @@ const FormSignIn = () => {
           onChange={handleChange}
           onBlur={handleBlur}
           placeholder= 'Enter your password'
-          error='Password is required'
-          validation={validatin.password}
+          error={validatin.password}
         />
         <Button
           type='submit'

@@ -19,34 +19,46 @@ const FormSignIn = () => {
   })
 
   const [validatin, setValidation] = useState({
-    email: true,
-    name: true,
-    nickname: true,
-    password: true,
-    repassword: true,
+    email: '',
+    name: '',
+    nickname: '',
+    gender: '',
+    password: '',
+    repassword: '',
   })
 
   const [submit, setSubmit] = useState(false)
 
+  const genders = [
+    {
+      label: 'Male',
+      value: 'male'
+    },
+    {
+      label: 'Female',
+      value: 'female'
+    }
+  ]
+
+  let allValuesTrue = false
+  let allFieldsTrue = false
+  // const allValues = {}
+
   useEffect(() => {
-    console.log('validatinvalidatinvalidatin', validatin)
-    const allValues = Object.values(validatin).every(value => value === true);
-    //if (allValues) setSubmit(true)
-  }, [validatin])
+    // console.log('useEffect::::', fields)
+    allValuesTrue = Object.values(validatin).every(value => value === '');
+    allFieldsTrue = Object.values(fields).every(value => value !== '');
+    // console.log('allValuesTrue', allValuesTrue, allFieldsTrue)
+      
+    
+  }, [validatin, fields])
 
   const handleBlur = (e: FormEvent<HTMLInputElement>) => {
     const { name, value } = e.target as HTMLInputElement
-    if (formValidation(name, value, fields)) {
-      setValidation((prevValidation) => ({
-        ...prevValidation,
-        [name]: true
-      }))
-    } else {
-      setValidation((prevValidation) => ({
-        ...prevValidation,
-        [name]: false
-      }))
-    }
+    setValidation((prevValidation) => ({
+      ...prevValidation,
+      [name]: formValidation(name, value, fields)
+    }))
   }
 
   const handleChange = (e: FormEvent<HTMLInputElement>) => {
@@ -56,43 +68,44 @@ const FormSignIn = () => {
       ...prevFields,
       [name.toLocaleLowerCase()]: value
     }))
+
+    setValidation((prevValidation) => ({
+      ...prevValidation,
+      [name]: formValidation(name, value, fields)
+    }))
   }
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    setSubmit(false)
 
     Array.from(e.target).forEach((field) => {
       const { name, value } = field as HTMLInputElement
-      
       if (formValidation(name, value, fields)) {
         setValidation((prevValidation) => ({
           ...prevValidation,
-          [name]: true
+          [name]: formValidation(name, value, fields)
         }))
-      } else {
-        setValidation((prevValidation) => ({
-          ...prevValidation,
-          [name]: false
-        }))
-
-        console.log('###', validatin)
       }
+      
     })
 
-    
+    allValuesTrue = Object.values(validatin).every(value => value === '');
+    allFieldsTrue = Object.values(fields).every(value => value !== '');
+    if (allValuesTrue && allFieldsTrue) {
+      console.log('setSubmit allValuesTrue', allValuesTrue, allFieldsTrue)
+      setSubmit(true);
+    }
 
-    console.log('allValues', submit)
-    
+    console.log('submit', validatin, fields)
   }
 
   return (
     <div className="form">
       <h1>Create your account</h1>
-      {/* {!submit && ( */}
+      {!submit && (
         
       
-      <form action="" onSubmit={handleSubmit}>
+      <form action="" onSubmit={handleSubmit} noValidate>
         <Input
           label='email'
           type='email'
@@ -100,8 +113,7 @@ const FormSignIn = () => {
           onChange={handleChange}
           onBlur={handleBlur}
           placeholder= 'Enter your email'
-          error='Email is required'
-          validation={validatin.email}
+          error={validatin.email}
         />
         <Input
           label='name'
@@ -110,8 +122,7 @@ const FormSignIn = () => {
           onChange={handleChange}
           onBlur={handleBlur}
           placeholder= 'Enter your name'
-          error='Name is required'
-          validation={validatin.name}
+          error={validatin.name}
         />
         <Input
           label='nickname'
@@ -120,23 +131,16 @@ const FormSignIn = () => {
           onChange={handleChange}
           onBlur={handleBlur}
           placeholder= 'Enter your nickname'
-          error='Nickname is required'
-          validation={validatin.nickname}
+          error={validatin.nickname}
         />
-        <div className="form__radio-group">
-          <FormRadio
-            label='male'
-            name='gender'
-            value={fields.gender}
-            onChange={handleChange}
-          />
-          <FormRadio
-            label='female'
-            name='gender'
-            value={fields.gender}
-            onChange={handleChange}
-          />
-        </div>
+        <FormRadio
+          name='gender'
+          value={fields.gender}
+          props={genders}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={validatin.gender}
+        />
         <Input
           label='password'
           type='password'
@@ -144,8 +148,7 @@ const FormSignIn = () => {
           onChange={handleChange}
           onBlur={handleBlur}
           placeholder= 'Enter your password'
-          error='Password is required'
-          validation={validatin.password}
+          error={validatin.password}
         />
         <Input
           label='repassword'
@@ -154,8 +157,7 @@ const FormSignIn = () => {
           onChange={handleChange}
           onBlur={handleBlur}
           placeholder= 'Enter your password again'
-          error='Password is required'
-          validation={validatin.repassword}
+          error={validatin.repassword}
         />
         <Button
           type='submit'
@@ -164,7 +166,7 @@ const FormSignIn = () => {
         />
         <p className="form__text">Already have an account? <a href="#">Sign In</a></p>
       </form>
-      {/* )} */}
+      )}
       { submit && <div className="form__message"><h2>Success</h2>You are signed up</div> }
     </div>
   )

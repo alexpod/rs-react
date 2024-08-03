@@ -61,8 +61,10 @@
         outline: 0px;
       }
     }
-    &-group {
+    &-wrapper {
       display: flex;
+    }
+    &-group {
       margin-bottom: 20px;
     }
   }
