@@ -3,10 +3,16 @@ import Input from "../Form/FormInput/FormInput"
 import Button from "../Form/FormButton/FormButton"
 import formValidation from "../Form/FormValidation"
 import FormRadio from "../Form/FormRadio/FormRadio"
+import { IconUser } from "../Icons/IconMail"
 
 const FormSignIn = () => {
   interface Fields {
     [key: string]: string
+  }
+
+  interface genders {
+    label: string
+    value: string
   }
 
   const [fields, setFields] = useState<Fields>({
@@ -29,7 +35,7 @@ const FormSignIn = () => {
 
   const [submit, setSubmit] = useState(false)
 
-  const genders = [
+  const genders: genders[] = [
     {
       label: 'Male',
       value: 'male'
@@ -42,15 +48,10 @@ const FormSignIn = () => {
 
   let allValuesTrue = false
   let allFieldsTrue = false
-  // const allValues = {}
 
   useEffect(() => {
-    // console.log('useEffect::::', fields)
     allValuesTrue = Object.values(validatin).every(value => value === '');
     allFieldsTrue = Object.values(fields).every(value => value !== '');
-    // console.log('allValuesTrue', allValuesTrue, allFieldsTrue)
-      
-    
   }, [validatin, fields])
 
   const handleBlur = (e: FormEvent<HTMLInputElement>) => {
@@ -77,7 +78,6 @@ const FormSignIn = () => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-
     Array.from(e.target).forEach((field) => {
       const { name, value } = field as HTMLInputElement
       if (formValidation(name, value, fields)) {
@@ -86,17 +86,14 @@ const FormSignIn = () => {
           [name]: formValidation(name, value, fields)
         }))
       }
-      
     })
 
     allValuesTrue = Object.values(validatin).every(value => value === '');
     allFieldsTrue = Object.values(fields).every(value => value !== '');
+
     if (allValuesTrue && allFieldsTrue) {
-      console.log('setSubmit allValuesTrue', allValuesTrue, allFieldsTrue)
       setSubmit(true);
     }
-
-    console.log('submit', validatin, fields)
   }
 
   return (
@@ -132,6 +129,9 @@ const FormSignIn = () => {
           onBlur={handleBlur}
           placeholder= 'Enter your nickname'
           error={validatin.nickname}
+          icon={
+            <IconUser color="#848484" size="20px" />
+          }
         />
         <FormRadio
           name='gender'

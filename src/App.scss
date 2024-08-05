@@ -50,6 +50,9 @@
       color: red;
       font-size: 14px;
     }
+    &-field {
+      position: relative;
+    }
   }
   &__radio {
     display: flex;
@@ -66,6 +69,14 @@
     }
     &-group {
       margin-bottom: 20px;
+    }
+  }
+  &__icon {
+    position: absolute;
+    top: 18px;
+    left: 12px;
+    + input {
+      padding-left: 40px;
     }
   }
 }

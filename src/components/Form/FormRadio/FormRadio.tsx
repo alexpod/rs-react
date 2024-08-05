@@ -22,12 +22,13 @@ const FormRadio = ({
         
       <div className="form__radio-wrapper"> 
       {props.map((gender) => (
-        <div className="form__radio">
+        <div className="form__radio" key={gender.label}>
           <input
             id={gender.label}
             name={name}
             type="radio"
             value={gender.value}
+            checked={value === gender.value}
             onChange={onChange}
             onBlur={onBlur}
           />

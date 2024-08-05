@@ -12,7 +12,7 @@ interface FormInputProps {
   error?: string;
   size?: 'small' | 'medium' | 'large';
   variant?: 'primary' | 'danger' | 'warning';
-  validation?: boolean
+  icon?: JSX.Element;
 }
 
 const FormInput = ({
@@ -27,7 +27,7 @@ const FormInput = ({
   error,
   size,
   variant,
-  validation
+  icon
 }: FormInputProps) => {
 
   const classList = [className, size, variant].filter(Boolean).join(' ')
@@ -35,17 +35,20 @@ const FormInput = ({
   return (
     <div className="form__input">
       <label htmlFor={label}>{label}</label>
-      <input
-        id={label}
-        name={label}
-        type={type}
-        className={classList || undefined}
-        value={value}
-        onChange={onChange}
-        onBlur={onBlur}
-        placeholder={placeholder}
-        disabled={disabled}
-      />
+      <div className="form__input-field">
+        {icon && <div className="form__icon">{icon}</div>}
+        <input
+          id={label}
+          name={label}
+          type={type}
+          className={classList || undefined}
+          value={value}
+          onChange={onChange}
+          onBlur={onBlur}
+          placeholder={placeholder}
+          disabled={disabled}
+        />
+      </div>
       { error && (
         <div className="form__input-error" >
           { error }
