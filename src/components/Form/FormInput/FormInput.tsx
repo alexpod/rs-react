@@ -1,11 +1,8 @@
-// import { FormEvent, useState } from 'react'
-
 interface FormInputProps {
   label: string;
   type: 'text' | 'email' | 'password';
   value: string;
   onChange: Function;
-  onBlur: Function;
   disabled?: boolean;
   className?: string;
   placeholder?: string;
@@ -20,7 +17,6 @@ const FormInput = ({
   type,
   value,
   onChange,
-  onBlur,
   disabled,
   className,
   placeholder,
@@ -44,7 +40,6 @@ const FormInput = ({
           className={classList || undefined}
           value={value}
           onChange={onChange}
-          onBlur={onBlur}
           placeholder={placeholder}
           disabled={disabled}
         />

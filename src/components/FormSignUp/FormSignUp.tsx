@@ -3,9 +3,9 @@ import Input from "../Form/FormInput/FormInput"
 import Button from "../Form/FormButton/FormButton"
 import formValidation from "../Form/FormValidation"
 import FormRadio from "../Form/FormRadio/FormRadio"
-import { IconUser } from "../Icons/IconMail"
+import { IconUser } from "../Icons/IconForm"
 
-const FormSignIn = () => {
+const FormSignIn = ({ onMenuClick }: { onMenuClick: Function}) => {
   interface Fields {
     [key: string]: string
   }
@@ -50,20 +50,12 @@ const FormSignIn = () => {
   let allFieldsTrue = false
 
   useEffect(() => {
-    allValuesTrue = Object.values(validatin).every(value => value === '');
-    allFieldsTrue = Object.values(fields).every(value => value !== '');
+    allValuesTrue = Object.values(validatin).every(value => value === '')
+    allFieldsTrue = Object.values(fields).every(value => value !== '')
   }, [validatin, fields])
 
-  const handleBlur = (e: FormEvent<HTMLInputElement>) => {
-    const { name, value } = e.target as HTMLInputElement
-    setValidation((prevValidation) => ({
-      ...prevValidation,
-      [name]: formValidation(name, value, fields)
-    }))
-  }
-
   const handleChange = (e: FormEvent<HTMLInputElement>) => {
-    const { name, value } = e.target as HTMLInputElement // name = e.target.name
+    const { name, value } = e.target as HTMLInputElement
 
     setFields((prevFields: Fields) => ({
       ...prevFields,
@@ -88,19 +80,22 @@ const FormSignIn = () => {
       }
     })
 
-    allValuesTrue = Object.values(validatin).every(value => value === '');
-    allFieldsTrue = Object.values(fields).every(value => value !== '');
+    allValuesTrue = Object.values(validatin).every(value => value === '')
+    allFieldsTrue = Object.values(fields).every(value => value !== '')
 
     if (allValuesTrue && allFieldsTrue) {
       setSubmit(true);
     }
   }
 
+  const handleClick = (item: string) => {
+    onMenuClick(item)
+  }
+
   return (
     <div className="form">
       <h1>Create your account</h1>
       {!submit && (
-        
       
       <form action="" onSubmit={handleSubmit} noValidate>
         <Input
@@ -108,7 +103,6 @@ const FormSignIn = () => {
           type='email'
           value={fields.email}
           onChange={handleChange}
-          onBlur={handleBlur}
           placeholder= 'Enter your email'
           error={validatin.email}
         />
@@ -117,7 +111,6 @@ const FormSignIn = () => {
           type='text'
           value={fields.name}
           onChange={handleChange}
-          onBlur={handleBlur}
           placeholder= 'Enter your name'
           error={validatin.name}
         />
@@ -126,7 +119,6 @@ const FormSignIn = () => {
           type='text'
           value={fields.nickname}
           onChange={handleChange}
-          onBlur={handleBlur}
           placeholder= 'Enter your nickname'
           error={validatin.nickname}
           icon={
@@ -138,7 +130,6 @@ const FormSignIn = () => {
           value={fields.gender}
           props={genders}
           onChange={handleChange}
-          onBlur={handleBlur}
           error={validatin.gender}
         />
         <Input
@@ -146,7 +137,6 @@ const FormSignIn = () => {
           type='password'
           value={fields.password}
           onChange={handleChange}
-          onBlur={handleBlur}
           placeholder= 'Enter your password'
           error={validatin.password}
         />
@@ -155,7 +145,6 @@ const FormSignIn = () => {
           type='password'
           value={fields.repassword}
           onChange={handleChange}
-          onBlur={handleBlur}
           placeholder= 'Enter your password again'
           error={validatin.repassword}
         />
@@ -164,7 +153,7 @@ const FormSignIn = () => {
           text='Sign Up'
           onChange={() => {}}
         />
-        <p className="form__text">Already have an account? <a href="#">Sign In</a></p>
+        <p className="form__text">Already have an account? <a href="#" onClick={() => handleClick('signin')}>Sign In</a></p>
       </form>
       )}
       { submit && <div className="form__message"><h2>Success</h2>You are signed up</div> }

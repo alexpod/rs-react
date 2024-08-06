@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import './App.scss'
+import './assets/scss/index.scss'
+import './assets/scss/layout.scss'
 import Header from './components/Header/Header'
 import FormSignIn from './components/FormSignIn/FormSignIn'
 import FormSignUp from './components/FormSignUp/FormSignUp'
@@ -9,14 +10,13 @@ function App() {
 
   const handleMenuClick = (item: string) => {
     setState(item)
-    console.log('###', state, item)
   }
 
   return (
     <>
       <Header onMenuClick={handleMenuClick} />
-      {state === 'signin' && <FormSignIn /> }
-      {state === 'signup' && <FormSignUp /> }
+      {state === 'signin' && <FormSignIn onMenuClick={handleMenuClick} /> }
+      {state === 'signup' && <FormSignUp onMenuClick={handleMenuClick} /> }
     </>
   )
 }
