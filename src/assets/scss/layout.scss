@@ -1,0 +1,82 @@
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  text-align: center;
+}
+.form {
+  max-width: 400px;
+  margin: 150px auto;
+  h1 {
+    font-size: 28px;
+    font-weight: 500;
+  }
+  button {
+    margin-top: 10px;
+  }
+  input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #464646;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    resize: vertical;
+    font-size: 18px;
+    &:focus {
+      outline: 1px solid #00d8fe;
+    }
+  }
+  &__message {
+    background: #333;
+    padding: 30px 20px;
+    border-radius: 8px;
+    h2 {
+      margin: 0 0 10px 0;
+    }
+  }
+  &__text {
+    font-size: 14px;
+    color: #848484;
+    a {
+      opacity: 0.5;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+  &__input {
+    margin-bottom: 16px;
+    &-error {
+      color: red;
+      font-size: 14px;
+    }
+    &-field {
+      position: relative;
+    }
+  }
+  &__radio {
+    display: flex;
+    margin: 0 15px 0 0;
+    cursor: pointer;
+    input {
+      margin: 0 5px 0 0;
+      &:focus {
+        outline: 0px;
+      }
+    }
+    &-wrapper {
+      display: flex;
+    }
+    &-group {
+      margin-bottom: 20px;
+    }
+  }
+  &__icon {
+    position: absolute;
+    top: 18px;
+    left: 12px;
+    + input {
+      padding-left: 40px;
+    }
+  }
+}
