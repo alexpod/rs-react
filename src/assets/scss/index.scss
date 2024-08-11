@@ -1,3 +1,7 @@
+
+* {
+  box-sizing: border-box;
+}
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -17,9 +21,12 @@ a {
   font-weight: 500;
   color: #00d8fe;
   text-decoration: inherit;
-}
-a:hover {
-  color: #00d8fe;
+  &:hover {
+    color: #bfde42;
+  }
+  &.active {
+    color: #bfde42;
+  }
 }
 
 body {
@@ -36,8 +43,6 @@ h1 {
 .container {
   max-width: 1280px;
   margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
 }
 
 button {
