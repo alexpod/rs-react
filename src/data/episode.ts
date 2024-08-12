@@ -1,4 +1,4 @@
-export const episodes = [
+const episodes = [
   {
     "id": 1,
     "name": "Pilot",
@@ -140,3 +140,5 @@ export const episodes = [
     "created": "2017-11-10T12:56:35.772Z"
   }
 ]
+
+export default episodes

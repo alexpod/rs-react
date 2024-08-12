@@ -1,12 +1,25 @@
 import { useState, useEffect } from "react"
-import characters from "../data/characters"
-import episodes from "../data/episode.json"
-import locations from "../data/location.json"
 import { useParams, Link } from "react-router-dom"
+import characters from "../data/characters"
+import episodes from "../data/episode"
+import locations from "../data/location"
+
+interface dataObject {
+  id: number
+  name: string
+  status?: string
+  species?: string
+  type?: string
+  gender?: string
+  image?: string
+  created: string
+  air_date?: string;
+  episode?: string;
+}
 
 const Category = () => {
-  const [data, setData] = useState([])
-  const [sortedData, setSortedData] = useState([]);
+  const [data, setData] = useState<dataObject[]>([])
+  const [sortedData, setSortedData] = useState<dataObject[]>([]);
   const { category } = useParams()
 
   useEffect(() => {
@@ -19,8 +32,6 @@ const Category = () => {
         break;
       case "locations":
         setData(locations);
-        break;
-      default:
         break;
     }
   }, [category]);
@@ -48,7 +59,16 @@ const Category = () => {
     setSortedData(data)
   }, [data]);
 
-
+  const getDate = (date: string) => {
+    return new Date(date.replace('Z', '+00:00')).toLocaleString('ru-RU', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+      second: 'numeric' 
+    })
+  }
 
   return (
    <div className="category">
@@ -62,8 +82,6 @@ const Category = () => {
           <span className="sort__button" onClick={() => {sortList('desc')}}>DESC</span>
         </p>
       </div>
-      {/* <p>{categoryNmae}</p>
-      <p>{itemId}</p> */}
       <div className="category__list">
         {sortedData && sortedData.map((item) => (
           <Link to={`/category/${category}/${item.id}`} key={item.id} className="category__item-link">
@@ -72,9 +90,8 @@ const Category = () => {
             <div className="category__item-content">
               {item.id && <div className="category__item-id">#{item.id}</div>}
               <h3>{item.name && item.name}</h3>
-              {/* {item.created && new Date(item.created.replace('Z', '+00:00'))} */}
               <div className="category__item-date">
-                {item.created && new Date(item.created.replace('Z', '+00:00')).toLocaleString('ru-RU', { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' })}
+                {item.created && getDate(item.created)}
               </div>
             </div>
           </div>

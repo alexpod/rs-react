@@ -1,4 +1,4 @@
-export const locations = [
+const locations = [
   {
     "id": 1,
     "name": "Earth (C-137)",
@@ -140,3 +140,5 @@ export const locations = [
     "created": "2017-11-18T19:33:01.173Z"
   }
 ]
+
+export default locations

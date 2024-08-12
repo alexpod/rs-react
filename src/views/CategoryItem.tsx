@@ -1,10 +1,23 @@
 import { useParams } from "react-router-dom"
-import characters from "../data/characters.json"
-import episodes from "../data/episode.json"
-import locations from "../data/location.json"
+import characters from "../data/characters"
+import episodes from "../data/episode"
+import locations from "../data/location"
+
+interface dataObject {
+  id: number
+  name: string
+  status?: string
+  species?: string
+  type?: string
+  gender?: string
+  image?: string
+  created: string
+  air_date?: string;
+  episode?: string;
+}
 
 const CategoryItem = () => {
-  let categoryNew = []
+  let categoryNew: dataObject[] = []
   const { category, id } = useParams()
 
   switch (category) {
@@ -20,17 +33,6 @@ const CategoryItem = () => {
     default:
       break
   }
-  // console.log(category, id)
-  // console.log(categoryNew.filter((item) => item.id === parseInt(id) ))
-
-  // categoryNew = categoryNew.filter((item) => (item.id == id)).map((c, i) => {
-  //   Object.keys(c).forEach((key) => {
-  //     console.log(`${key}: ${c[key]}`);
-  //   });
-  // });
-  // Object.keys(categoryNew).forEach((key) => {
-  //   console.log(`${key}: ${categoryNew[key]}`);
-  // });
 
   return (
     <>
@@ -39,12 +41,16 @@ const CategoryItem = () => {
       <div className="card">
         <div className="card__image"></div>
         <dl>
-          {categoryNew.filter((item) => (item.id == id)).map((c, i) => (
+          {categoryNew.filter((item: dataObject) => ((item.id).toString() === id)).map((c, i) => (
             <>
               {Object.keys(c).map((key) => (
                 <>
-                  <dt key={`${i}-${key}`}>{key}</dt>
-                  <dd key={`${i}-${key}`}>{c[key]}</dd>
+                { c[key] && (
+                  <>
+                    <dt key={`${i}-${key}`}>{key}</dt>
+                    <dd key={`${i}-${key}-${c[key]}`}>{c[key]}</dd>
+                  </>
+                )}
                 </>
               ))}
             </>

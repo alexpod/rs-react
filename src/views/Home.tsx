@@ -1,6 +1,5 @@
 const Home = () => {
   return (
-   <>
     <div className="billboard">
       <div className="container">
         <div className="billboard__title">
@@ -11,7 +10,6 @@ const Home = () => {
         </div>
       </div>
     </div>
-   </> 
   )
 }
 
