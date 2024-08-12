@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { useParams, Link } from "react-router-dom"
+import { useParams, Link, useSearchParams } from "react-router-dom"
 import characters from "../data/characters"
 import episodes from "../data/episode"
 import locations from "../data/location"
@@ -22,6 +22,9 @@ const Category = () => {
   const [sortedData, setSortedData] = useState<dataObject[]>([]);
   const { category } = useParams()
 
+  const [searchParams, setSearchParams] = useSearchParams({sort: "id"});
+  const search = searchParams.get("sort");
+
   useEffect(() => {
     switch (category) {
       case "characters":
@@ -36,9 +39,9 @@ const Category = () => {
     }
   }, [category]);
 
-  const sortList = (type: string) => {
+  const sortList = () => {
     let sortedDataCopy = [...data]
-    switch (type) {
+    switch (searchParams.get("sort")) {
       case "id":
         sortedDataCopy.sort((a, b) => b.id - a.id)
         break
@@ -56,8 +59,8 @@ const Category = () => {
   }
 
   useEffect(() => {
-    setSortedData(data)
-  }, [data]);
+    sortList()
+  }, [data, searchParams]);
 
   const getDate = (date: string) => {
     return new Date(date.replace('Z', '+00:00')).toLocaleString('ru-RU', {
@@ -76,10 +79,10 @@ const Category = () => {
       <h1>Category {category && category}</h1>
       <div className="sort">
         <p>Sort by: 
-          <span className="sort__button" onClick={() => {sortList('id')}}>ID</span>
-          <span className="sort__button" onClick={() => {sortList('date')}}>Date</span>
-          <span className="sort__button" onClick={() => {sortList('asc')}}>ASC</span>
-          <span className="sort__button" onClick={() => {sortList('desc')}}>DESC</span>
+          <span className="sort__button" onClick={() => {setSearchParams({sort: "id"})}}>ID</span>
+          <span className="sort__button" onClick={() => {setSearchParams({sort: "date"})}}>Date</span>
+          <span className="sort__button" onClick={() => {setSearchParams({sort: "asc"})}}>ASC</span>
+          <span className="sort__button" onClick={() => {setSearchParams({sort: "desc"})}}>DESC</span>
         </p>
       </div>
       <div className="category__list">
