@@ -1,9 +1,6 @@
-import { FormEvent, useState } from 'react'
-
 interface FormButtonProps {
   type: 'submit' | 'reset' | 'button';
   text: string;
-  onChange: Function;
   disabled?: boolean;
   className?: string;
   error?: string;
@@ -14,7 +11,6 @@ interface FormButtonProps {
 const FormButton = ({
   type,
   text,
-  onChange,
   disabled,
   className,
   error,
@@ -29,7 +25,6 @@ const FormButton = ({
       <button
         type={type}
         className={classList || undefined}
-        onChange={onChange}
         disabled={disabled}
       >{text}</button>
       { error && (

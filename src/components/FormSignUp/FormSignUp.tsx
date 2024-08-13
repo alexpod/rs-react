@@ -5,15 +5,19 @@ import formValidation from "../Form/FormValidation"
 import FormRadio from "../Form/FormRadio/FormRadio"
 import { IconUser } from "../Icons/IconForm"
 
-const FormSignIn = ({ onMenuClick }: { onMenuClick: Function}) => {
+type FormSignUpProps = {
+  onMenuClick: (item: string) => void
+}
+
+const FormSignIn = ({ onMenuClick }: FormSignUpProps) => {
   interface Fields {
     [key: string]: string
   }
 
-  interface genders {
+  type Genders = {
     label: string
     value: string
-  }
+  }[]
 
   const [fields, setFields] = useState<Fields>({
     email: '',
@@ -35,7 +39,7 @@ const FormSignIn = ({ onMenuClick }: { onMenuClick: Function}) => {
 
   const [submit, setSubmit] = useState(false)
 
-  const genders: genders[] = [
+  const genders: Genders = [
     {
       label: 'Male',
       value: 'male'
@@ -151,7 +155,6 @@ const FormSignIn = ({ onMenuClick }: { onMenuClick: Function}) => {
         <Button
           type='submit'
           text='Sign Up'
-          onChange={() => {}}
         />
         <p className="form__text">Already have an account? <a href="#" onClick={() => handleClick('signin')}>Sign In</a></p>
       </form>

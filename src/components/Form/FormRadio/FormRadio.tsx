@@ -7,16 +7,14 @@ interface FormRadioProps {
   value: string;
   name?: string;
   onChange: React.ChangeEventHandler<HTMLInputElement>;
-  onBlur: React.ChangeEventHandler<HTMLInputElement>;
   error?: string;
-  props: [];
+  props: Gender[];
 }
 
 const FormRadio = ({
   value,
   name,
   onChange,
-  onBlur,
   error,
   props
 }: FormRadioProps) => {
@@ -34,7 +32,6 @@ const FormRadio = ({
             value={gender.value}
             checked={value === gender.value}
             onChange={onChange}
-            onBlur={onBlur}
           />
           <label htmlFor={gender.label}>{gender.label}</label>
         </div>

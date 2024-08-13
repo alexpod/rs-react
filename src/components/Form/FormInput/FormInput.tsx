@@ -2,7 +2,7 @@ interface FormInputProps {
   label: string;
   type: 'text' | 'email' | 'password';
   value: string;
-  onChange: Function;
+  onChange: React.ChangeEventHandler<HTMLInputElement>;
   disabled?: boolean;
   className?: string;
   placeholder?: string;

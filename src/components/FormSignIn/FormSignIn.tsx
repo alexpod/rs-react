@@ -3,7 +3,12 @@ import Input from "../Form/FormInput/FormInput"
 import Button from "../Form/FormButton/FormButton"
 import formValidation from "../Form/FormValidation"
 
-const FormSignIn = ({ onMenuClick }: { onMenuClick: Function}) => {
+
+type FormSignInProps = {
+  onMenuClick: (item: string) => void
+}
+
+const FormSignIn = ({ onMenuClick }: FormSignInProps) => {
   interface Fields {
     [key: string]: string
   }
@@ -86,7 +91,6 @@ const FormSignIn = ({ onMenuClick }: { onMenuClick: Function}) => {
         <Button
           type='submit'
           text='Sign In'
-          onChange={() => {}}
         />
         <p className="form__text">Don't have an account? <a href="#" onClick={() => handleClick('signup')}>Sign Up</a></p>
       </form>

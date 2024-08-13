@@ -2,8 +2,11 @@ import { useState } from 'react'
 import './Header.style.scss';
 import reactLogo from '../../assets/react.svg';
 
+type FormSignUpProps = {
+  onMenuClick: (item: string) => void
+}
 
-const Header = ({ onMenuClick }: { onMenuClick: Function}) => {
+const Header = ({ onMenuClick }: FormSignUpProps) => {
   const [ active, setActive ] = useState('signin')
 
   const handleClick = (item: string) => {
@@ -18,8 +21,8 @@ const Header = ({ onMenuClick }: { onMenuClick: Function}) => {
         </div>
         <nav>
             <ul>
-              <li><a href="#" className={active === 'signin' && 'active'} onClick={() => handleClick('signin')}>Sign In</a></li>
-              <li><a href="#" className={active === 'signup' && 'active'} onClick={() => handleClick('signup')}>Sign Up</a></li>
+              <li><a href="#" className={active === 'signin' ? 'active' : ''} onClick={() => handleClick('signin')}>Sign In</a></li>
+              <li><a href="#" className={active === 'signin' ? 'active' : ''} onClick={() => handleClick('signup')}>Sign Up</a></li>
             </ul>
         </nav>
       </div>
