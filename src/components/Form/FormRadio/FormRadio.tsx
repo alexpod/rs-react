@@ -1,9 +1,13 @@
 
+interface Gender {
+  label: string;
+  value: string;
+}
 interface FormRadioProps {
   value: string;
   name?: string;
-  onChange: Function;
-  onBlur: Function;
+  onChange: React.ChangeEventHandler<HTMLInputElement>;
+  onBlur: React.ChangeEventHandler<HTMLInputElement>;
   error?: string;
   props: [];
 }
@@ -21,7 +25,7 @@ const FormRadio = ({
     <div className="form__radio-group">
         
       <div className="form__radio-wrapper"> 
-      {props.map((gender) => (
+      {props.map((gender: Gender) => (
         <div className="form__radio" key={gender.label}>
           <input
             id={gender.label}

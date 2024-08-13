@@ -39,7 +39,7 @@ const FormSignIn = ({ onMenuClick }: { onMenuClick: Function}) => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    Array.from(e.target).forEach((field) => {
+    Array.from(e.target as unknown as NodeListOf<HTMLInputElement>).forEach((field) => {
       const { name, value } = field as HTMLInputElement
       
       if (formValidation(name, value, fields)) {
