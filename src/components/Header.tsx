@@ -1,5 +1,6 @@
-import { NavLink, Link } from 'react-router-dom'
+import { NavLink, Link, Outlet } from 'react-router-dom'
 import logo from '../../public/img/logo.svg'
+import AuthStatus from "../components/AuthStatus";
 
 const Header = () => {
 
@@ -16,7 +17,9 @@ const Header = () => {
           <div className="header__nav-item"><NavLink to={'/category/episodes'}>Episode</NavLink></div>
           <div className="header__nav-item"><NavLink to={'/category/locations'}>Location</NavLink></div>
         </div>
-        <div className="header__auth"></div>
+        <div className="header__auth">
+          <AuthStatus />
+        </div>
       </div>
     </header>
   )
