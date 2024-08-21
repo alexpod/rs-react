@@ -1,0 +1,60 @@
+header {
+  padding: 10px 20px;
+  background-color: #333;
+  color: white;
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo {
+    will-change: filter;
+    transition: filter 300ms;
+    cursor: pointer;
+    img {
+      height: 30px;
+      width: auto;
+      display: block;
+    }
+
+    &:hover {
+      filter: drop-shadow(0 0 2em #646cffaa);
+    }
+    &.react:hover {
+      filter: drop-shadow(0 0 2em #61dafbaa);
+    }
+  }
+
+  nav {
+    ul {
+      list-style-type: none;
+      display: flex;
+      margin: 0;
+
+      li {
+        margin-right: 10px;
+
+        a {
+          text-decoration: none;
+          color: white;
+          font-size: 14px;
+
+          &.active {
+            color: #00d8fe;
+          }
+        }
+        &::after {
+          content: '|';
+          margin-left: 10px;
+          color: #878787;
+        }
+
+        &:last-child::after {
+          content: '';
+        }
+      }
+    }
+  }
+}
